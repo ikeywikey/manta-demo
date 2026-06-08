@@ -129,6 +129,20 @@ Two things back to back: import an old Beads project (migration), then race the 
     ```
     *Say:* Manta keeps a ready-to-go local database, so creating and listing stay near-instant even with hundreds of issues, while Beads slows down — and the gap only grows as the project gets bigger. Put the Manta and Beads times on screen side by side.
 
+    > **Ideas — other benchmarks we could show** *(not in the run-of-show; pick whichever read best on camera, drop the rest to stay under budget):*
+    >
+    > - **Bulk create / throughput** — time a loop that creates many issues at once (e.g. 100 in a row) instead of a single `create`. This is where a slow per-write tool really compounds.
+    >   ```bash
+    >   time (for i in $(seq 1 100); do mt create "Bulk issue $i"; done)
+    >   time (for i in $(seq 1 100); do bd create "Bulk issue $i"; done)
+    >   ```
+    > - **Update** — time changing a field on an existing issue (`mt update <id> --priority p1` vs the Beads equivalent), and/or a bulk update across many issues.
+    > - **Close** — time `mt close <id>` vs the Beads equivalent, and/or closing many in a loop.
+    > - **Filtered / sorted view** — time a query that has to scan and filter, not just dump the list (`mt view --priority p0`, `--assignee Ike`, `--type bug`) vs the Beads filter. Filtering is often where the gap is widest.
+    > - **Single-issue detail** — time `mt view <id>` vs the Beads show command (a point lookup, not a full list).
+    > - **Migrate itself** — wrap the step-15 `mt migrate ./beads-big.jsonl` in `time` so the import speed is itself a number on screen.
+    > - **Cold vs warm** — run a command twice and show the second is just as fast (no warm-up penalty), to make the "ready-to-go local database" point concrete.
+
 ### Act 5 — Wrap up & reset · ~0:15
 
 The last two commands round out the command set and leave the repo clean for next time.
