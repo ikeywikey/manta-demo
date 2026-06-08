@@ -24,13 +24,13 @@ We start with a repo that has one buggy file and no Manta set up. Over the cours
 
 The two people in the demo:
 
-- **Ike** is at the keyboard, working `calculator.js` together with Claude (scan → file issues → triage → fix).
+- **Ike** is at the keyboard, working `calculator.js` together with Claude (scan → file issues → sort → fix).
 - **Ori** is the teammate who pulls Ike's finished work to show that issues sync across a team.
 
 ## Setup (before recording)
 
 - A git repo with a remote both Ike and Ori can push/pull from, with one buggy file (`calculator.js`) committed. Manta **not** initialized.
-- The buggy file lives at [`admin/demo-assets/calculator.js`](demo-assets/calculator.js). Its problems are a **deliberate mix of kinds** so triage assigns genuinely different fields:
+- The buggy file lives at [`admin/demo-assets/calculator.js`](demo-assets/calculator.js). Its problems are a **deliberate mix of kinds** so sorting them assigns genuinely different fields:
 
   | Function | Problem | Kind | Triage → type / priority |
   |---|---|---|---|
@@ -74,8 +74,8 @@ The two people in the demo:
    mt create "square() JSDoc says cube but code squares"
    mt create "isEqual() uses loose == equality"
    ```
-6. **`mt view`** — our first look at the list. Every issue is sitting at the default `p5 / task`. *Say:* this is the "before triage" picture.
-7. **`mt update`** — Claude now triages each issue. Because the problems are genuinely different, the fields end up different too: the crash becomes a high-priority bug, the wrong comment becomes a low-priority docs task, and so on. We also split assignees between Ike and Ori. *Point out:* you can set several fields in one command, and you can use the short ID (e.g. `h3kp`) instead of the full `manta-h3kp`. One `mt update` per issue Claude filed — all five:
+6. **`mt view`** — our first look at the list. Every issue is sitting at the default `p5 / task`. *Say:* this is the "before sorting" picture.
+7. **`mt update`** — Claude now sorts each issue. Because the problems are genuinely different, the fields end up different too: the crash becomes a high-priority bug, the wrong comment becomes a low-priority docs task, and so on. We also split assignees between Ike and Ori. *Point out:* you can set several fields in one command, and you can use the short ID (e.g. `h3kp`) instead of the full `manta-h3kp`. One `mt update` per issue Claude filed — all five:
    ```bash
    mt update <id> --type bug  --priority p0 --assignee Ike   # divide() crash
    mt update <id> --type bug  --priority p1 --assignee Ike   # add() logic bug
