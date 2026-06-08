@@ -68,11 +68,11 @@ The two people in the demo:
 
 5. **`mt create`** — ask Claude to read `calculator.js` and file one issue per problem it finds. Have it create each with a title **and a short `--desc` description** (but no priority/type/assignee, so those fall back to their defaults `p5` / `task` — that gives us something to fix up in the next step). The descriptions matter because we open one with `mt view <id>` in step 9, and we want real text in that detail view. The file has five problems of different kinds (see the setup table), but Claude scans live, so its exact wording and the issues it surfaces may vary from the titles below — treat them as a guide, not a script.
    ```bash
-   mt create "divide() has no divide-by-zero guard" --desc "divide(a, b) returns a / b with no check for b === 0, so dividing by zero yields Infinity/NaN instead of erroring."
-   mt create "add() concatenates string inputs instead of summing" --desc "add(a, b) uses + so string args get concatenated ('2' + '3' => '23') instead of summed."
-   mt create "average() returns NaN on an empty array" --desc "average([]) divides 0 by 0; no input validation for an empty array."
-   mt create "square() JSDoc says cube but code squares" --desc "Comment says 'Returns the cube of n' but the body returns n * n."
-   mt create "isEqual() uses loose == equality" --desc "isEqual(a, b) uses == instead of ===, allowing unintended type coercion."
+   mt create "divide() has no divide-by-zero guard" --desc "..."
+   mt create "add() concatenates string inputs instead of summing" --desc "..."
+   mt create "average() returns NaN on an empty array" --desc "..."
+   mt create "square() JSDoc says cube but code squares" --desc "..."
+   mt create "isEqual() uses loose == equality" --desc "..."
    ```
 6. **`mt view`** — our first look at the list. Every issue is sitting at the default `p5 / task`. *Say:* this is the "before sorting" picture.
 7. **`mt update`** — Claude now sorts each issue. Because the problems are genuinely different, the fields end up different too: the crash becomes a high-priority bug, the wrong comment becomes a low-priority docs task, and so on. We also split assignees between Ike and Ori. *Point out:* you can set several fields in one command, and you can use the short ID (e.g. `h3kp`) instead of the full `manta-h3kp`. One `mt update` per issue Claude filed — all five:
