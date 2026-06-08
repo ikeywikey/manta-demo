@@ -66,7 +66,7 @@ The two people in the demo:
 
 ### Act 2 — Agent workflow on `calculator.js` *(Ike + Claude)* · ~1:15
 
-5. **`mt create`** — ask Claude to read `calculator.js` and file one issue per problem it finds. Have it create them with **only a title** so priority and type fall back to their defaults (`p5`, `task`) — that gives us something to fix up in the next step. The file has five problems of different kinds (see the setup table).
+5. **`mt create`** — ask Claude to read `calculator.js` and file one issue per problem it finds. Have it create them with **only a title** so priority and type fall back to their defaults (`p5`, `task`) — that gives us something to fix up in the next step. The file has five problems of different kinds (see the setup table), but Claude scans live, so its exact wording and the issues it surfaces may vary from the titles below — treat them as a guide, not a script.
    ```bash
    mt create "divide() has no divide-by-zero guard"
    mt create "add() concatenates string inputs instead of summing"
@@ -75,9 +75,11 @@ The two people in the demo:
    mt create "isEqual() uses loose == equality"
    ```
 6. **`mt view`** — our first look at the list. Every issue is sitting at the default `p5 / task`. *Say:* this is the "before triage" picture.
-7. **`mt update`** — Claude now triages each issue. Because the problems are genuinely different, the fields end up different too: the crash becomes a high-priority bug, the wrong comment becomes a low-priority docs task, and so on. We also split assignees between Ike and Ori. *Point out:* you can set several fields in one command, and you can use the short ID (e.g. `h3kp`) instead of the full `manta-h3kp`.
+7. **`mt update`** — Claude now triages each issue. Because the problems are genuinely different, the fields end up different too: the crash becomes a high-priority bug, the wrong comment becomes a low-priority docs task, and so on. We also split assignees between Ike and Ori. *Point out:* you can set several fields in one command, and you can use the short ID (e.g. `h3kp`) instead of the full `manta-h3kp`. One `mt update` per issue Claude filed — all five:
    ```bash
    mt update <id> --type bug  --priority p0 --assignee Ike   # divide() crash
+   mt update <id> --type bug  --priority p1 --assignee Ike   # add() logic bug
+   mt update <id> --type bug  --priority p2 --assignee Ori   # average() edge case
    mt update <id> --type docs --priority p3 --assignee Ori   # square() docs
    mt update <id> --type task --priority p4 --assignee Ike   # isEqual() warning
    ```
