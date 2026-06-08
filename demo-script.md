@@ -85,23 +85,24 @@ The two people in the demo:
    ```
 8. **`mt view`** — the same list, now properly sorted out: a real spread of priorities, types, and assignees. The before/after contrast with step 6 is the whole point of this segment.
 9. **`mt view <id>`** — open the `p0` crash issue on its own to show the full detail view (description, metadata, who created and updated it).
-10. **`mt update` + `mt close`** — Claude takes the top issue from start to finish:
+10. **`mt update` + `mt close`** — do the **first one slowly** so viewers see the workflow actually happen. Claude takes the `p0` crash from start to finish:
     ```bash
     mt update <id> --status in_progress    # mark it as being worked on
     # ...Claude edits calculator.js and fixes divide()...
     mt close <id>                          # mark it done
     ```
-11. **`mt view`** — the open list shrinks because closed issues are hidden by default. Then run **`mt view --all`** once to show the closed issue is still on record, not gone. Fix the remaining issues the same way, running `mt view` between fixes so the shrinking list stays visible on screen.
+11. **`mt view`** — the open list shrinks by one because closed issues are hidden by default. Then run **`mt view --all`** once to show the closed issue is still on record, not gone. *Say:* that's one issue worked and closed for real.
+12. **Now run through the rest in one go.** With the workflow established, have Claude fix and close the four remaining issues back to back without narrating each one. Then run **`mt view`** again to show the open list is now empty (or down to whatever's left) — the whole batch cleared in a single pass.
 
 ### Act 3 — Sync between teammates *(Ike → Ori)* · ~0:30
 
-12. **Ike** commits his fixes and the issue log, then pushes:
+13. **Ike** commits his fixes and the issue log, then pushes:
     ```bash
     git add .manta/manta.jsonl calculator.js
     git commit -m "fix calculator bugs + manta issues"
     git push
     ```
-13. **Ori** (on his own machine) pulls the changes, syncs, and looks:
+14. **Ori** (on his own machine) pulls the changes, syncs, and looks:
     ```bash
     git pull
     mt sync        # update Ori's local copy from the shared issue log
@@ -113,12 +114,12 @@ The two people in the demo:
 
 Two things back to back: import an old Beads project (migration), then race the everyday commands against Beads on that same large set (speed).
 
-14. **`mt migrate`** — import a large existing Beads project into Manta:
+15. **`mt migrate`** — import a large existing Beads project into Manta:
     ```bash
     mt migrate ./beads-big.jsonl
     ```
     *Point out:* the summary line (Migrated / Skipped / Failed) and that issue IDs carry over (`beads-h53` becomes `manta-h53`). *Say:* this just loaded hundreds of issues into Manta — which is exactly the kind of large project where speed starts to matter, so let's race it against Beads.
-15. **Time the same everyday commands on each tool.** With both Manta and Beads holding the same few-hundred-issue project, wrap each command in `time` and read the numbers out loud. Create an issue, then list issues:
+16. **Time the same everyday commands on each tool.** With both Manta and Beads holding the same few-hundred-issue project, wrap each command in `time` and read the numbers out loud. Create an issue, then list issues:
     ```bash
     time mt create "Benchmark issue"     # Manta — add an issue
     time bd create "Benchmark issue"     # Beads — add an issue
@@ -132,8 +133,8 @@ Two things back to back: import an old Beads project (migration), then race the 
 
 The last two commands round out the command set and leave the repo clean for next time.
 
-16. **`mt delete <id>`** — delete a single throwaway issue. Manta asks `[y/N]` first, so viewers see that deletes are guarded.
-17. **`mt clear`** — the final step: wipe every issue to reset the repo. It also asks to confirm, then clears the whole log. *Say:* this is how you start fresh. **Destructive — erases all issue history.**
+17. **`mt delete <id>`** — delete a single throwaway issue. Manta asks `[y/N]` first, so viewers see that deletes are guarded.
+18. **`mt clear`** — the final step: wipe every issue to reset the repo. It also asks to confirm, then clears the whole log. *Say:* this is how you start fresh. **Destructive — erases all issue history.**
 
 ---
 
@@ -147,18 +148,18 @@ Every command appears at least once:
 | `mt init` | Act 1, step 2 |
 | `mt version` | Act 1, step 3 |
 | `mt help` | Act 1, step 3 |
-| `mt view` (list / detail / `--all`) | Acts 1–4, steps 4, 6, 8, 9, 11, 13, 15 |
-| `mt create` | Act 2, step 5; Act 4, step 15 (benchmark) |
+| `mt view` (list / detail / `--all`) | Acts 1–4, steps 4, 6, 8, 9, 11, 12, 14, 16 |
+| `mt create` | Act 2, step 5; Act 4, step 16 (benchmark) |
 | `mt update` | Act 2, steps 7, 10 |
-| `mt close` | Act 2, step 10 |
-| `mt sync` | Act 3, step 13 |
-| `mt migrate` | Act 4, step 14 |
-| `mt delete` | Act 5, step 16 |
-| `mt clear` | Act 5, step 17 |
+| `mt close` | Act 2, steps 10, 12 |
+| `mt sync` | Act 3, step 14 |
+| `mt migrate` | Act 4, step 15 |
+| `mt delete` | Act 5, step 17 |
+| `mt clear` | Act 5, step 18 |
 
 ## Goal checklist
 
-- ✅ **Migrate from Beads** — Act 4, step 14 (`mt migrate`)
+- ✅ **Migrate from Beads** — Act 4, step 15 (`mt migrate`)
 - ✅ **Sync between teammates** — Act 3
 - ✅ **Use Manta with an agent** — Act 2
-- ✅ **Speed vs Beads** — Act 4, step 15 (`time mt create` / `time mt view` vs the Beads equivalents, on a few-hundred-issue project)
+- ✅ **Speed vs Beads** — Act 4, step 16 (`time mt create` / `time mt view` vs the Beads equivalents, on a few-hundred-issue project)
