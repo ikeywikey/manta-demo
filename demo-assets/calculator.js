@@ -1,6 +1,6 @@
 // calculator.js — small arithmetic helpers.
 // NOTE: intentionally buggy for the Manta demo. Five different kinds of
-// problem so triage can assign different priorities, types, and assignees:
+// problem so sorting can assign different priorities, types, and assignees:
 //   divide()  crash bug      bug  / p0     average() edge-case bug  bug  / p2
 //   add()     logic bug      bug  / p1     square()  wrong comment  docs / p3
 //   isEqual() lint warning   task / p4
