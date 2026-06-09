@@ -6,11 +6,12 @@
 //   isEqual() lint warning   task / p4
 
 function add(a, b) {
-  return a + b; // string inputs concatenate instead of summing
+  return Number(a) + Number(b); // coerce to numbers so string inputs sum instead of concatenating
 }
 
 function divide(a, b) {
-  return a / b; // no guard for b === 0
+  if (b === 0) throw new Error("Cannot divide by zero");
+  return a / b;
 }
 
 function average(nums) {
